@@ -1,7 +1,20 @@
 <template>
   <div class="form-box">
     <form ref="formRef" class="needs-validation" novalidate @submit.prevent="formHandler">
-      <h2>LOGIN</h2>
+      <h2>Register</h2>
+      <div class="mb-4">
+        <label for="FormInputEmail1" class="form-label">User</label>
+        <input
+          v-model="formData.username"
+          type="text"
+          class="form-control"
+          id="FormInputEmail1"
+          :disabled="loading"
+          required
+        />
+        <div class="invalid-feedback">this fieled in required</div>
+      </div>
+
       <div class="mb-4">
         <label for="FormInputEmail1" class="form-label">Email</label>
         <input
@@ -31,9 +44,7 @@
       <button type="submit" class="btn btn-primary text-white w-100" :disabled="loading">
         {{ loading ? 'in process...' : 'Login' }}
       </button>
-      <p class="Text-Style">
-        Don’t have account? <RouterLink to="/register">Register Now</RouterLink>
-      </p>
+      <p class="Text-Style">Already Registered? <RouterLink to="/">Login</RouterLink></p>
     </form>
   </div>
   <Teleport to="#main-container">
@@ -57,7 +68,7 @@
 </template>
 
 <script lang="ts" setup>
-import loginHandler from '@/utils/loginHandler'
+import registerHandler from '@/utils/registerHandler'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -66,7 +77,7 @@ const router = useRouter()
 const alertData = ref({ type: 'danger', text: '', show: false, dismissible: false })
 
 const formRef = ref()
-const formData = ref({ email: '', password: '' })
+const formData = ref({ email: '', password: '', username: '' })
 const loading = ref(false)
 
 const formHandler = async (event: any) => {
@@ -76,9 +87,10 @@ const formHandler = async (event: any) => {
     event.stopPropagation()
     formRef.value.classList.add('was-validated')
   } else {
-    const response = await loginHandler({
+    const response = await registerHandler({
       email: formData.value.email,
-      password: formData.value.password
+      password: formData.value.password,
+      username: formData.value.username
     })
     if (response?.status === 'success') {
       router.push({ path: '/articles', replace: true })

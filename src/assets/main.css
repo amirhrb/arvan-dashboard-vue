@@ -1,5 +1,7 @@
 @import '../assets/fonts/HelveticaNeue/font.css';
 
+@import './custom.scss';
+
 html,
 body {
   font-family: HelveticaNeue, sans-serif;
@@ -19,13 +21,6 @@ body {
   --slate-gray: #818a91;
   --water-blue: #1c7cd5;
   --silver: #eceeef;
-  /* bootstrap vars */
-  --primary: #1c7cd5;
-  --secondary: #6c757d;
-  --success: #5cb85c;
-  --info: #5bc0de;
-  --warning: #f0ad4e;
-  --danger: #cb2e25;
 }
 .form-control.is-invalid,
 .was-validated .form-control:invalid,

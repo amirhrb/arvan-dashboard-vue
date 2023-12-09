@@ -1,0 +1,11 @@
+$theme-colors: (
+  'primary': #1c7cd5,
+  'secondary': #6c757d,
+  'success': #5cb85c,
+  'info': #5bc0de,
+  'warning': #f0ad4e,
+  'danger': #cb2e25
+);
+$input-border-width: 2px;
+
+@import '../../node_modules/bootstrap/scss/bootstrap';

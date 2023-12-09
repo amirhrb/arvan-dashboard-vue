@@ -24,6 +24,8 @@ const loginHandler = async ({ email, password }: { email: string; password: stri
     .catch((error) => {
       if (error.response.status === 403) {
         return { status: 'failed', message: 'Login Failed! User name and/or Password is invalid' }
+      } else {
+        return { status: 'failed', message: 'An error accured in login process' }
       }
     })
   return userData
