@@ -1,0 +1,52 @@
+@import '../assets/fonts/HelveticaNeue/font.css';
+
+html,
+body {
+  font-family: HelveticaNeue, sans-serif;
+}
+
+:root {
+  --charcoal-grey: #373a3c;
+  --pinkish-grey: #e7cecd;
+  --light-grey-green: #d5e6c7;
+  --military-green: #4b713d;
+  --pale-red: #d9534f;
+  --white-15: hsla(0, 0%, 100%, 0.15);
+  --gunmetal: #55595c;
+  --dark-sky-blue: #5bc0de;
+  --warm-grey: #707070;
+  --brick: #cb2e25;
+  --slate-gray: #818a91;
+  --water-blue: #1c7cd5;
+  --silver: #eceeef;
+  /* bootstrap vars */
+  --primary: #1c7cd5;
+  --secondary: #6c757d;
+  --success: #5cb85c;
+  --info: #5bc0de;
+  --warning: #f0ad4e;
+  --danger: #cb2e25;
+}
+.form-control.is-invalid,
+.was-validated .form-control:invalid,
+.form-control.is-valid,
+.was-validated .form-control:valid {
+  background-image: none;
+}
+/* .permanent-invalid-input label {
+  --bs-text-opacity: 1;
+  color: rgba(var(--bs-danger-rgb), var(--bs-text-opacity)) !important;
+} */
+.permanent-invalid-input .form-control:focus,
+.permanent-invalid-input .form-control {
+  border-color: var(--bs-form-invalid-border-color) !important;
+  box-shadow: 0 0 0 0.25rem rgba(var(--bs-danger-rgb), 0.25) !important;
+}
+.permanent-invalid-input .form-control {
+  border-color: var(--bs-form-invalid-border-color);
+}
+.permanent-invalid-input .invalid-feedback {
+  display: inline-block;
+}
+
+/* give permanent-invalid-input class to input to make it always  error as wanted in design */
