@@ -24,6 +24,12 @@
         />
       </table>
     </div>
+    <PaginationComponents
+      v-if="data"
+      :articlesCount="data.data.articlesCount"
+      :limit="limit"
+      :page="page"
+    />
   </div>
 </template>
 
@@ -32,6 +38,7 @@ import { useRoute } from 'vue-router'
 import useArticlesQuery from '@/utils/useArticlesQuery'
 // component
 import TableBody from './TableBody.vue'
+import PaginationComponents from './PaginationComponents.vue'
 
 const route = useRoute()
 
