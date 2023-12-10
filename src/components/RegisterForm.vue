@@ -46,25 +46,25 @@
       </button>
       <p class="Text-Style">Already Registered? <RouterLink to="/">Login</RouterLink></p>
     </form>
+    <Teleport to="body">
+      <div
+        class="alert alert-dismissible"
+        style="width: fit-content; position: fixed; top: 20px; right: 20px"
+        v-if="alertData.show"
+        :class="alertData.type ? `alert-${alertData.type}` : 'alert-danger'"
+        role="alert"
+      >
+        {{ alertData.text }}
+        <button
+          v-if="alertData.dismissible"
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          @click="alertData.show = false"
+        ></button>
+      </div>
+    </Teleport>
   </div>
-  <Teleport to="#main-container">
-    <div
-      class="alert alert-dismissible"
-      style="width: fit-content; position: fixed; top: 20px; right: 20px"
-      v-if="alertData.show"
-      :class="alertData.type ? `alert-${alertData.type}` : 'alert-danger'"
-      role="alert"
-    >
-      {{ alertData.text }}
-      <button
-        v-if="alertData.dismissible"
-        type="button"
-        class="btn-close"
-        aria-label="Close"
-        @click="alertData.show = false"
-      ></button>
-    </div>
-  </Teleport>
 </template>
 
 <script lang="ts" setup>

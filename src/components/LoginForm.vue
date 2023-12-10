@@ -36,7 +36,7 @@
       </p>
     </form>
   </div>
-  <Teleport to="#main-container">
+  <Teleport to="body">
     <div
       class="alert alert-dismissible"
       style="width: fit-content; position: fixed; top: 20px; right: 20px"

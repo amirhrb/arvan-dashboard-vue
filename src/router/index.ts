@@ -3,9 +3,11 @@ import { createRouter, createWebHistory } from 'vue-router'
 // views
 import HomeView from '@/views/HomeView.vue'
 import ArticlesView from '@/views/ArticlesView.vue'
-import CreateArticle from '@/views/CreateArticle.vue'
+import CreateView from '@/views/CreateView.vue'
 import EditView from '@/views/EditView.vue'
 import RegisterView from '@/views/RegisterView.vue'
+import NotFound from '@/views/NotFound.vue'
+import ArticlesTable from '@/components/ArticlesTable.vue'
 
 // fn
 import getCurrentUser from '@/utils/getCurrentUser'
@@ -31,25 +33,45 @@ const router = createRouter({
       meta: {
         title: 'All Articles',
         requiresAuth: true
-      }
-    },
-    {
-      path: '/articles/create',
-      name: 'create',
-      component: CreateArticle,
-      meta: {
-        title: 'Create New Article',
-        requiresAuth: true
-      }
-    },
-    {
-      path: '/articles/edit/:slug',
-      name: 'edit',
-      component: EditView,
-      meta: {
-        title: 'Edit Article',
-        requiresAuth: true
-      }
+      },
+      children: [
+        {
+          path: '',
+          name: 'articles',
+          component: ArticlesTable,
+          meta: {
+            title: 'Articles',
+            requiresAuth: true
+          }
+        },
+        {
+          path: 'page/:page',
+          name: 'articlesPage',
+          component: ArticlesTable,
+          meta: {
+            title: 'Articles',
+            requiresAuth: true
+          }
+        },
+        {
+          path: 'create',
+          name: 'create',
+          component: CreateView,
+          meta: {
+            title: 'Create New Article',
+            requiresAuth: true
+          }
+        },
+        {
+          path: 'edit/:slug',
+          name: 'edit',
+          component: EditView,
+          meta: {
+            title: 'Edit Article',
+            requiresAuth: true
+          }
+        }
+      ]
     },
     {
       path: '/register',
@@ -59,7 +81,8 @@ const router = createRouter({
         title: 'Register',
         requiresAuth: false
       }
-    }
+    },
+    { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound }
   ]
 })
 
@@ -79,7 +102,7 @@ router.beforeEach(async (to) => {
       return {
         path: '/'
       }
-    } else return
+    }
   }
   // if already logged in user goes to login or register page, redirect to articles page
   if ((to.path === '/' || to.path === '/register') && userData.status === 'authorized') {

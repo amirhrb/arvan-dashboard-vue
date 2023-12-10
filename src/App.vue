@@ -17,7 +17,7 @@ import { RouterView } from 'vue-router'
 }
 .route-enter-active,
 .route-leave-active {
-  transition: opacity 0.3s linear;
+  transition: opacity 0.1s linear;
 }
 
 .route-enter-from,

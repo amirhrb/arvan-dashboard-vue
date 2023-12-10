@@ -21,6 +21,10 @@ body {
   --slate-gray: #818a91;
   --water-blue: #1c7cd5;
   --silver: #eceeef;
+
+  /*  */
+  --header-min-height: 60px;
+  --header-max-height: 70px;
 }
 .form-control.is-invalid,
 .was-validated .form-control:invalid,
