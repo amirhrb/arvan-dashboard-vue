@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { useQuery } from '@tanstack/vue-query'
 
 // fn
 import handleLocalStorage from './handleLocalStorage'
@@ -22,14 +21,3 @@ export const getArticles = async (page: number, limit: number) => {
     .then((res) => res)
     .catch((error) => error)
 }
-const useArticlesQuery = (page: number, limit: number) => {
-  // All articles Query
-  const { isPending, isError, data, error } = useQuery({
-    queryKey: ['articles'],
-    queryFn: () => getArticles(page, limit)
-  })
-
-  return { isPending, isError, data, error }
-}
-
-export default useArticlesQuery

@@ -11,7 +11,10 @@
         </RouterLink>
       </li>
       <li v-for="number in paginationData.middleButtonsNumbers" class="page-item" :key="number">
-        <RouterLink class="page-link" :to="number === 1 ? '/articles' : `/articles/page/${number}`">
+        <RouterLink
+          class="page-link"
+          :to="{ path: number === 1 ? '/articles' : `/articles/page/${number}` }"
+        >
           {{ number }}
         </RouterLink>
       </li>

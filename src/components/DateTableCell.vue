@@ -153,6 +153,7 @@ const handleDelete = () => {
 <style scoped>
 .table-cell {
   white-space: nowrap;
+  text-align: right;
 }
 .modal-body {
   min-height: 90px;

@@ -1,9 +1,6 @@
 <template>
   <div>
-    <div class="py-4 d-flex align-items-center justify-content-between z-3" id="main-heading">
-      <h1>All Posts</h1>
-    </div>
-    <div class="table-responsive">
+    <div class="table-responsive table-box">
       <table class="table">
         <thead>
           <tr>
@@ -17,7 +14,7 @@
         </thead>
         <TableBody
           :isError="isError"
-          :isPending="isPending"
+          :isPending="isPending || isLoading || isFetching || isRefetching"
           :data="data"
           :limit="limit"
           :page="page"
@@ -35,25 +32,37 @@
 
 <script lang="ts" setup>
 import { useRoute } from 'vue-router'
-import useArticlesQuery from '@/utils/useArticlesQuery'
+import { getArticles } from '@/utils/getArticles'
 // component
 import TableBody from './TableBody.vue'
 import PaginationComponents from './PaginationComponents.vue'
+import { ref, watch } from 'vue'
+import { useQuery, useQueryClient } from '@tanstack/vue-query'
 
 const route = useRoute()
 
-// in /articles it will query the page 1 and for /articles/page/:page query the :page
-const limit = route.query.limit ? +route.query.limit : 10
-const page = route.params.page ? +route.params.page : 1
+const queryClient = useQueryClient()
 
-const { data, isError, isPending } = useArticlesQuery(page, limit)
+// in /articles it will query the page 1 and for /articles/page/:page query the :page
+const limit = ref(route.query.limit ? +route.query.limit : 10)
+const page = ref(route.params.page ? +route.params.page : 1)
+
+watch(route, () => {
+  page.value = route.params.page ? +route.params.page : 1
+  limit.value = route.query.limit ? +route.query.limit : 10
+  console.log(page.value)
+
+  queryClient.invalidateQueries({ queryKey: ['articles'] })
+})
+const { data, isError, isPending, isLoading, isRefetching, isFetching } = useQuery({
+  queryKey: ['articles'],
+  queryFn: () => getArticles(page.value, limit.value)
+})
 </script>
 
 <style scoped>
-#main-heading {
-  position: sticky;
-  top: 0;
-  background-color: white;
+.table-box {
+  min-height: calc(100vh - var(--header-min-height) - 100px);
 }
 thead tr {
   background-color: var(--silver);

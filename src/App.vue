@@ -5,10 +5,12 @@
         <component :is="Component" />
       </Transition>
     </RouterView>
+    <VueQueryDevtools position="right" />
   </div>
 </template>
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
+import { VueQueryDevtools } from '@tanstack/vue-query-devtools'
 </script>
 <style scoped>
 .main-container {

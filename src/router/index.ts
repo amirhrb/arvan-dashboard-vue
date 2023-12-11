@@ -27,20 +27,26 @@ const router = createRouter({
       }
     },
     {
+      path: '/register',
+      name: 'register',
+      component: RegisterView,
+      meta: {
+        title: 'Register',
+        requiresAuth: false
+      }
+    },
+    {
       path: '/articles',
       name: 'articles',
       component: ArticlesView,
-      meta: {
-        title: 'All Articles',
-        requiresAuth: true
-      },
       children: [
         {
           path: '',
-          name: 'articles',
+          name: 'articlesFirstPage',
           component: ArticlesTable,
           meta: {
             title: 'Articles',
+            heading: 'All Posts',
             requiresAuth: true
           }
         },
@@ -50,6 +56,7 @@ const router = createRouter({
           component: ArticlesTable,
           meta: {
             title: 'Articles',
+            heading: 'All Posts',
             requiresAuth: true
           }
         },
@@ -59,6 +66,7 @@ const router = createRouter({
           component: CreateView,
           meta: {
             title: 'Create New Article',
+            heading: 'New Article',
             requiresAuth: true
           }
         },
@@ -68,19 +76,11 @@ const router = createRouter({
           component: EditView,
           meta: {
             title: 'Edit Article',
+            heading: 'Edit Article',
             requiresAuth: true
           }
         }
       ]
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: RegisterView,
-      meta: {
-        title: 'Register',
-        requiresAuth: false
-      }
     },
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound }
   ]

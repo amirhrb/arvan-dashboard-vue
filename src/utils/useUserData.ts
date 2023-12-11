@@ -4,14 +4,13 @@ import handleLocalStorage from './handleLocalStorage'
 
 const API_URL = import.meta.env.VITE_API_URL
 
-const token = handleLocalStorage('token')
-
-const headers = {
-  'Content-Type': 'application/json',
-  'X-Requested-With': 'XMLHttpRequest',
-  Authorization: `Token ${token}`
-}
 const getUser = () => {
+  const token = handleLocalStorage('token')
+  const headers = {
+    'Content-Type': 'application/json',
+    'X-Requested-With': 'XMLHttpRequest',
+    Authorization: `Token ${token}`
+  }
   return axios
     .get(`${API_URL}/user`, { headers })
     .then(({ data }) => {

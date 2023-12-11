@@ -28,7 +28,7 @@ const registerHandler = async ({
   const userData = await axios
     .post(`${API_URL}/users`, body, { headers })
     .then(({ data }) => {
-      // if (data.user) handleLocalStorage('token', data.user.token)
+      if (data.user) handleLocalStorage('token', data.user.token)
       return { data, status: 'success', message: 'Login successfuly' }
     })
     .catch((error) => {

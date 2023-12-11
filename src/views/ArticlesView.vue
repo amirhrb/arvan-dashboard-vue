@@ -4,6 +4,9 @@
     <div class="content-grid">
       <AsideComponent class="sidebar" />
       <main class="main">
+        <div class="py-4 d-flex align-items-center justify-content-between z-3" id="main-heading">
+          <h1>{{ route.meta.heading }}</h1>
+        </div>
         <RouterView v-slot="{ Component }">
           <Transition name="fade">
             <component :is="Component" />
@@ -17,9 +20,17 @@
 <script lang="ts" setup>
 import HeaderCmponent from '@/components/HeaderComponent.vue'
 import AsideComponent from '@/components/AsideComponent.vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 </script>
 
 <style scoped>
+#main-heading {
+  position: sticky;
+  top: 0;
+  background-color: white;
+}
 .content-grid {
   max-width: 100vw;
   width: 100%;
@@ -47,7 +58,7 @@ import AsideComponent from '@/components/AsideComponent.vue'
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s linear;
+  transition: opacity 0.1s linear;
 }
 .fade-enter-from,
 .fade-leave-to {

@@ -1,7 +1,7 @@
 <template>
-  <tbody className="{styles.tableBody}">
+  <tbody>
     <TableRowLoading v-if="props.isPending" />
-    <TableRowError v-if="props.isError" />
+    <TableRowError v-else-if="props.isError" />
     <TableRow
       v-else-if="props.data"
       v-for="(data, index) in props.data.data.articles"
@@ -35,4 +35,4 @@ type Props = {
 const props = defineProps<Props>()
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped></style>
