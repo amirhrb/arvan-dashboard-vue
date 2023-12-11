@@ -1,32 +1,10 @@
 <template>
   <div class="form-box">
-    <form ref="formRef" class="needs-validation" novalidate @submit.prevent="formHandler">
+    <Form :validation-schema="validationSchema" @submit="onSubmit">
       <h2>LOGIN</h2>
-      <div class="mb-4">
-        <label for="FormInputEmail1" class="form-label">Email</label>
-        <input
-          v-model="formData.email"
-          type="email"
-          class="form-control"
-          id="FormInputEmail1"
-          :disabled="loading"
-          required
-        />
-        <div class="invalid-feedback">this fieled in required</div>
-      </div>
+      <TextInput name="email" label="Email" type="text" />
 
-      <div class="mb-4 permanent-invalid-input">
-        <label for="FormInputPassword1" class="form-label">Password</label>
-        <input
-          v-model="formData.password"
-          type="password"
-          class="form-control"
-          id="FormInputPassword1"
-          :disabled="loading"
-          required
-        />
-        <div class="invalid-feedback">this fieled in required</div>
-      </div>
+      <TextInput name="password" label="Password" type="password" />
 
       <button type="submit" class="btn btn-primary text-white w-100" :disabled="loading">
         {{ loading ? 'in process...' : 'Login' }}
@@ -34,7 +12,7 @@
       <p class="Text-Style">
         Don’t have account? <RouterLink to="/register">Register Now</RouterLink>
       </p>
-    </form>
+    </Form>
   </div>
   <Teleport to="body">
     <div
@@ -58,35 +36,39 @@
 
 <script lang="ts" setup>
 import loginHandler from '@/utils/loginHandler'
+import TextInput from './TextInput.vue'
+import { Form } from 'vee-validate'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import * as yup from 'yup'
+import { toTypedSchema } from '@vee-validate/yup'
 
 const router = useRouter()
 
 const alertData = ref({ type: 'danger', text: '', show: false, dismissible: false })
 
-const formRef = ref()
-const formData = ref({ email: '', password: '' })
+const validationSchema = toTypedSchema(
+  yup.object({
+    email: yup.string().email('Invalid email format').required('Required field'),
+    password: yup.string().required('Required field')
+  })
+)
+
 const loading = ref(false)
 
-const formHandler = async (event: any) => {
+const onSubmit = async (formData: any) => {
   loading.value = true
-  if (!event.target.checkValidity()) {
-    event.preventDefault()
-    event.stopPropagation()
-    formRef.value.classList.add('was-validated')
+
+  const response = await loginHandler({
+    email: formData.email,
+    password: formData.password
+  })
+  if (response?.status === 'success') {
+    router.push({ path: '/articles', replace: true })
   } else {
-    const response = await loginHandler({
-      email: formData.value.email,
-      password: formData.value.password
-    })
-    if (response?.status === 'success') {
-      router.push({ path: '/articles', replace: true })
-    } else {
-      alertData.value = { show: true, text: response.message, type: 'danger', dismissible: true }
-    }
+    alertData.value = { show: true, text: response.message, type: 'danger', dismissible: true }
+    loading.value = false
   }
-  loading.value = false
 }
 </script>
 

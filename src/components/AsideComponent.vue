@@ -16,7 +16,7 @@
 import { RouterLink } from 'vue-router'
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .sidebar {
   color: white;
   position: fixed;

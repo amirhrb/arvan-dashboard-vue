@@ -16,14 +16,18 @@
 
 <script lang="ts" setup>
 import useUserData from '@/utils/useUserData'
+import { useQueryClient } from '@tanstack/vue-query'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
+const queryClient = useQueryClient()
 
 const { isPending, data } = useUserData()
 
 const logoutHandler = () => {
   localStorage.clear()
+
+  queryClient.clear()
   router.push('/')
 }
 </script>
