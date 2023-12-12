@@ -34,7 +34,7 @@ const route = useRoute()
 .content-grid {
   max-width: 100vw;
   width: 100%;
-  height: calc(100vh - 200px);
+  height: calc(100vh - var(--header-min-height));
   display: grid;
   grid-template-columns: 2fr 10fr;
   overflow-x: hidden;
