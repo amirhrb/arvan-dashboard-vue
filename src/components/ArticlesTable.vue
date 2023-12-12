@@ -21,12 +21,7 @@
         />
       </table>
     </div>
-    <PaginationComponents
-      v-if="data"
-      :articlesCount="data.data.articlesCount"
-      :limit="limit"
-      :page="page"
-    />
+    <PaginationComponents v-if="data" :articlesCount="data.data.articlesCount" />
   </div>
 </template>
 
@@ -62,7 +57,7 @@ const { data, isError, isPending, isLoading, isRefetching, isFetching } = useQue
 
 <style scoped>
 .table-box {
-  min-height: calc(100vh - var(--header-min-height) - 100px);
+  min-height: calc(100vh - 300px);
 }
 thead tr {
   background-color: var(--silver);

@@ -34,18 +34,34 @@
 
 <script lang="ts" setup>
 import paginationHandler from '@/utils/paginationHandler'
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 
 type Props = {
-  page: number
-  limit: number
   articlesCount: number
 }
 const props = defineProps<Props>()
 
-const paginationData = paginationHandler({
-  articlesCount: props.articlesCount,
-  limit: props.limit,
-  page: props.page
+const route = useRoute()
+
+const limit = ref(route.query.limit ? +route.query.limit : 10)
+const page = ref(route.params.page ? +route.params.page : 1)
+const paginationData = ref(
+  paginationHandler({
+    articlesCount: props.articlesCount,
+    limit: limit.value,
+    page: page.value
+  })
+)
+watch(route, () => {
+  page.value = route.params.page ? +route.params.page : 1
+  limit.value = route.query.limit ? +route.query.limit : 10
+
+  paginationData.value = paginationHandler({
+    articlesCount: props.articlesCount,
+    limit: limit.value,
+    page: page.value
+  })
 })
 </script>
 
