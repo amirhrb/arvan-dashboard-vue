@@ -39,11 +39,6 @@ const route = useRoute()
   grid-template-columns: 2fr 10fr;
   overflow-x: hidden;
 }
-@media screen and (max-width: 768px) {
-  .content-grid {
-    height: calc(100vh - var(--header-max-height));
-  }
-}
 .main {
   overflow: hidden;
   padding: 0 30px 30px 30px;
@@ -52,10 +47,20 @@ const route = useRoute()
 }
 .sidebar {
   min-width: 200px;
-  display: block;
   position: sticky;
 }
-
+@media screen and (max-width: 768px) {
+  .content-grid {
+    height: calc(100vh - var(--header-max-height));
+    grid-template-columns: 1fr;
+  }
+  .main {
+    overflow: hidden;
+    padding: 0 30px 30px 30px;
+    overflow: auto;
+    max-width: 100vw;
+  }
+}
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.1s linear;

@@ -1,7 +1,7 @@
 <template>
   <aside class="sidebar bg-primary">
     <h2>Post</h2>
-    <ul>
+    <ul class="u-list">
       <li>
         <RouterLink to="/articles" exact-active-class="active"> All Articles </RouterLink>
       </li>
@@ -19,6 +19,7 @@ import { RouterLink } from 'vue-router'
 <style scoped>
 .sidebar {
   color: white;
+  display: block;
   position: fixed;
 }
 h2 {
@@ -26,7 +27,7 @@ h2 {
   font-size: 22px;
   font-weight: normal;
 }
-ul {
+.u-list {
   display: block;
   padding: 0;
   margin: 0;
@@ -50,5 +51,19 @@ li a:hover {
 }
 .active {
   background-color: var(--white-15);
+}
+@media screen and (max-width: 768px) {
+  .sidebar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .u-list {
+    display: flex;
+  }
+  h2 {
+    margin: auto 10px;
+  }
 }
 </style>
