@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onUpdated, toRef } from 'vue'
+import { toRef } from 'vue'
 import { useField } from 'vee-validate'
 
 const props = defineProps({
@@ -41,17 +41,11 @@ const name = toRef(props, 'name')
 
 const {
   value: inputValue,
-  setValue,
   errorMessage,
   handleBlur,
   handleChange
 } = useField(name, undefined, {
   initialValue: props.value
-})
-onUpdated(() => {
-  if (props.value) {
-    setValue(props.value, true)
-  }
 })
 </script>
 
