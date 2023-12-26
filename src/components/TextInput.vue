@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { toRef } from 'vue'
+import { toRef, watch } from 'vue'
 import { useField } from 'vee-validate'
 
 const props = defineProps({
@@ -37,7 +37,8 @@ const props = defineProps({
   }
 })
 
-const name = toRef(props, 'name')
+const name = toRef(() => props.name)
+const propValueReadOnly = toRef(() => props.value)
 
 const {
   value: inputValue,
@@ -46,6 +47,12 @@ const {
   handleChange
 } = useField(name, undefined, {
   initialValue: props.value
+})
+
+watch(propValueReadOnly, () => {
+  if (props.value) {
+     handleChange(propValueReadOnly.value)
+  }
 })
 </script>
 
@@ -58,7 +65,7 @@ const {
       :disabled="disabled"
       :id="name"
       :type="type"
-      :value="inputValue ? inputValue : props.value"
+      :value="inputValue"
       :placeholder="placeholder"
       :rows="rows"
       @input="handleChange"
@@ -73,7 +80,7 @@ const {
       :disabled="disabled"
       :id="name"
       :type="type"
-      :value="inputValue ? inputValue : props.value"
+      :value="inputValue"
       :placeholder="placeholder"
       @input="handleChange"
       @blur="handleBlur"
