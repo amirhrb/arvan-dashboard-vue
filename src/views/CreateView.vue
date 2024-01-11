@@ -98,9 +98,9 @@ const queryClient = useQueryClient()
 type ArrOfTags = [] | { tag: string; checked: boolean }[]
 const validationSchema = toTypedSchema(
   yup.object({
-    title: yup.string().required('Required field'),
-    description: yup.string().required('Required field'),
-    body: yup.string().required('Required field')
+    title: yup.string().trim().required('Required field'),
+    description: yup.string().trim().required('Required field'),
+    body: yup.string().trim().required('Required field')
   })
 )
 const allTags = ref<ArrOfTags>([])
@@ -119,19 +119,22 @@ const checkHandler = (item: { tag: string; checked: boolean }) => {
 }
 
 const addTagHandler = (e: any) => {
-  const repeatedIndex = allTags.value.findIndex((item) => item.tag === e.target.value)
-  if (e.target.value) {
-    if (repeatedIndex !== -1) {
-      const exceptedTags = allTags.value.filter((i) => i.tag !== e.target.value)
-      allTags.value = sortTags([
-        ...exceptedTags.map((i) => ({ tag: i.tag, checked: i.checked })),
-        { tag: e.target.value, checked: true }
-      ])
-    } else {
-      allTags.value = sortTags([
-        ...allTags.value.map((i) => ({ tag: i.tag, checked: i.checked })),
-        { tag: e.target.value, checked: true }
-      ])
+  const trimedValue = e.target.value.trim()
+  if (trimedValue) {
+    const repeatedIndex = allTags.value.findIndex((item) => item.tag === trimedValue)
+    if (trimedValue) {
+      if (repeatedIndex !== -1) {
+        const exceptedTags = allTags.value.filter((i) => i.tag !== trimedValue)
+        allTags.value = sortTags([
+          ...exceptedTags.map((i) => ({ tag: i.tag, checked: i.checked })),
+          { tag: trimedValue, checked: true }
+        ])
+      } else {
+        allTags.value = sortTags([
+          ...allTags.value.map((i) => ({ tag: i.tag, checked: i.checked })),
+          { tag: trimedValue, checked: true }
+        ])
+      }
     }
   }
   e.target.value = ''
