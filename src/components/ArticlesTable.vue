@@ -45,8 +45,6 @@ const page = ref(route.params.page ? +route.params.page : 1)
 watch(route, () => {
   page.value = route.params.page ? +route.params.page : 1
   limit.value = route.query.limit ? +route.query.limit : 10
-  console.log(page.value)
-
   queryClient.invalidateQueries({ queryKey: ['articles'] })
 })
 const { data, isError, isPending, isLoading, isRefetching, isFetching } = useQuery({

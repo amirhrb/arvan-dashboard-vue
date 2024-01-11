@@ -20,9 +20,22 @@
 <script lang="ts" setup>
 import HeaderCmponent from '@/components/HeaderComponent.vue'
 import AsideComponent from '@/components/AsideComponent.vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+import { onMounted, watch } from 'vue'
 
 const route = useRoute()
+const router = useRouter()
+
+watch(route, () => {
+  if (route.fullPath.includes('page') && route.params.page === '1') {
+    router.push('/articles')
+  }
+})
+onMounted(() => {
+  if (route.fullPath.includes('page') && route.params.page === '1') {
+    router.push('/articles')
+  }
+})
 </script>
 
 <style scoped>
